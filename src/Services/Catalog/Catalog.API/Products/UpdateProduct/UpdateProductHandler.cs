@@ -5,7 +5,7 @@ namespace Catalog.API.Products.UpdateProduct
     public record UpdateProductCommand(Guid Id, string Name,List<string> Category, string Description, string ImageUrl, decimal Price) 
         : ICommand<UpdateProductResult>;
 
-    public class UpdateProductResult(bool IsSuccess);
+    public record UpdateProductResult(bool IsSuccess);
     internal class UpdateProductHandler 
         (IDocumentSession session, ILogger<UpdateProductHandler> logger)
         : ICommandHandler<UpdateProductCommand, UpdateProductResult>
