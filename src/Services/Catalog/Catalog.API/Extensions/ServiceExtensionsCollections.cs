@@ -13,6 +13,7 @@ namespace Catalog.API.Extensions
             {
                 config.RegisterServicesFromAssembly(assembly);
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                config.AddOpenBehavior(typeof(LoggingBehavior<,>));
             });
             services.AddValidatorsFromAssembly(assembly);
 
