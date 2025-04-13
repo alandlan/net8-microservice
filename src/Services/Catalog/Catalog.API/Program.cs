@@ -1,13 +1,7 @@
+using BuildingBlocks.Behaviors;
 using Catalog.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddCarter();
-builder.Services.AddMediatR(config =>
-{
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
-});
 
 builder.Services.AddCatalogServices();
 
