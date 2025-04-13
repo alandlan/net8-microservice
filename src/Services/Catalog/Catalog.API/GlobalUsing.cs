@@ -6,3 +6,6 @@ global using Catalog.API.Models;
 global using Marten;
 global using Catalog.API.Exceptions;
 global using FluentValidation;
+global using Catalog.API.Extensions;
+global using HealthChecks.UI.Client;
+global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
