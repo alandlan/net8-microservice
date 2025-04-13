@@ -1,11 +1,12 @@
 ﻿using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.Handler;
+using Catalog.API.Data;
 
 namespace Catalog.API.Extensions
 {
     public static class ServiceExtensionsCollections
     {
-        public static IServiceCollection AddCatalogServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddCatalogServices(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
         {
             var assembly = typeof(Program).Assembly;
 
@@ -23,6 +24,9 @@ namespace Catalog.API.Extensions
             {
                 options.Connection(configuration.GetConnectionString("Database")!);
             }).UseLightweightSessions();
+
+            if (environment.IsDevelopment())
+                services.InitializeMartenWith<CatalogInitialData>();
 
             services.AddExceptionHandler<CustomExceptionHandler>();
 
