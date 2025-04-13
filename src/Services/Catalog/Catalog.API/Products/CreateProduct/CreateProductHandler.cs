@@ -1,6 +1,4 @@
-﻿
-
-namespace Catalog.API.Products.CreateProduct
+﻿namespace Catalog.API.Products.CreateProduct
 {
     public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price)
         :ICommand<CreateProductResult>;
@@ -17,13 +15,11 @@ namespace Catalog.API.Products.CreateProduct
         }
     }
     internal class CreateProductHandler
-        (IDocumentSession session, ILogger<CreateProductHandler> logger)
+        (IDocumentSession session)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            logger.LogInformation("CreateProductHandler.Handle called with {@Command}", command);
-
             var product = new Product
             {
                 Name = command.Name,
