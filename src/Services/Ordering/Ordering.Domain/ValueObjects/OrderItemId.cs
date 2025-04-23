@@ -2,12 +2,16 @@
 {
     public record OrderItemId
     {
-        public Guid Value { get; set; }
-
-        // Adding the missing 'Of' method to fix the error CS0117  
+        public Guid Value { get; set; };
+        private OrderItemId(Guid value) => Value = value;
         public static OrderItemId Of(Guid value)
         {
-            return new OrderItemId { Value = value };
+            ArgumentNullException.ThrowIfNull(value, nameof(value));
+
+            if (value == Guid.Empty)
+                throw new DomainException("OrderItemId cannot be empty.");
+
+            return new OrderItemId(value);
         }
     }
 }
