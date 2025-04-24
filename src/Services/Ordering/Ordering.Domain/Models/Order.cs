@@ -29,7 +29,7 @@
                 Status = OrderStatus.Pending,
             };
 
-            //order.AddDomainEvent(new OrderCretedEvent(order)); // Placeholder for product ID and price
+            order.AddDomainEvent(new OrderCretedEvent(order)); // Placeholder for product ID and price
 
             return order;
         }
@@ -42,7 +42,7 @@
             Payment = payment;
             Status = status;
 
-            //AddDomainEvent(new OrderUpdatedEvent(this));
+            AddDomainEvent(new OrderUpdatedEvent(this));
         }
 
         public void Add(ProductId productId, int quantity, decimal price)

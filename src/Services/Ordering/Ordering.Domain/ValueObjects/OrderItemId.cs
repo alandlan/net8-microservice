@@ -2,7 +2,7 @@
 {
     public record OrderItemId
     {
-        public Guid Value { get; set; };
+        public Guid Value { get; set; }
         private OrderItemId(Guid value) => Value = value;
         public static OrderItemId Of(Guid value)
         {
