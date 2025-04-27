@@ -14,7 +14,7 @@ namespace Ordering.Infrastructure.Data.Configuration
                 id => id.Value,
                 dbId => OrderItemId.Of(dbId)
             );
-            builder.Property(oi => oi.ProductId).IsRequired();
+            builder.HasOne<Product>().WithMany().HasForeignKey(oi => oi.ProductId);
             builder.Property(oi => oi.Quantity).IsRequired();
             builder.Property(oi => oi.Price).IsRequired();
         }
