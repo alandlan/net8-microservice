@@ -16,7 +16,9 @@ namespace Ordering.Infrastructure.Data.Configuration
                 dbId => OrderId.Of(dbId)
             );
             builder.HasOne<Customer>().WithMany().HasForeignKey(o => o.CustomerId).IsRequired();
+            
             builder.HasMany(o => o.OrderItems).WithOne().HasForeignKey(oi => oi.OrderId);
+            
             builder.ComplexProperty(
                 o => o.OrderName, nameBuilder =>
                 {
@@ -25,6 +27,7 @@ namespace Ordering.Infrastructure.Data.Configuration
                         .HasMaxLength(100)
                         .IsRequired();
                 });
+
             builder.ComplexProperty(
                 o => o.ShippingAddress, addressBuilder =>
                 {
@@ -47,6 +50,30 @@ namespace Ordering.Infrastructure.Data.Configuration
                         .HasMaxLength(50)
                         .IsRequired();
                 });
+
+            builder.ComplexProperty(
+                o => o.BillingAddress, addressBuilder =>
+                {
+                    addressBuilder.Property(a => a.FirstName)
+                        .HasMaxLength(50)
+                        .IsRequired();
+                    addressBuilder.Property(a => a.LastName)
+                        .HasMaxLength(50)
+                        .IsRequired();
+                    addressBuilder.Property(a => a.EmailAddress)
+                        .HasMaxLength(50);
+                    addressBuilder.Property(a => a.AddressLine)
+                        .HasMaxLength(180)
+                        .IsRequired();
+                    addressBuilder.Property(a => a.Country)
+                        .HasMaxLength(50);
+                    addressBuilder.Property(a => a.State)
+                        .HasMaxLength(50);
+                    addressBuilder.Property(a => a.ZipCode)
+                        .HasMaxLength(50)
+                        .IsRequired();
+                });
+            
             builder.ComplexProperty(
                 o => o.Payment, paymentBuilder =>
                 {
@@ -62,14 +89,14 @@ namespace Ordering.Infrastructure.Data.Configuration
                         .IsRequired();
                     paymentBuilder.Property(p => p.PaymentMethod);
                 });
+            
             builder.Property(o => o.Status)
                 .HasDefaultValue(OrderStatus.Draft)
                 .HasConversion(
                     status => status.ToString(),
                     dbStatus => (OrderStatus)Enum.Parse(typeof(OrderStatus), dbStatus));
+            
             builder.Property(o => o.TotalPrice);
-
-            builder.Property(o => o.CustomerId).IsRequired();
         }
     }
 }
